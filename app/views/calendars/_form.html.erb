@@ -1,0 +1,18 @@
+<hr>
+<%= form_for Calendar.new do |f| %>
+
+  <%= f.hidden_field :clinic_id, value: @clinic.id %>
+  <%= f.hidden_field :patient_id, value: current_user.patient.id %>
+
+  <div class="form-group">
+    <%= f.date_field :date, class: "form-control", min: Date.today %>
+  </div>
+
+  <div class="form-group">
+    <%= f.time_field :time, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Đặt lịch", class: "btn btn-primary" %>
+  </div>
+<% end %>

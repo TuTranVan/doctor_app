@@ -1,0 +1,86 @@
+<% provide(:title, @clinic.name) %>
+<div class="row">
+	<div class="col-md-6 clinic">
+		<div class="row title">THÔNG TIN PHÒNG KHÁM</div>
+		<div class="detail">
+			<ul>
+				<li><b>Tên phòng khám: </b><%= @clinic.name %></li>
+				<li><b>Điện thoại liên hệ: </b><%= @clinic.phone %></li>
+				<li><b>Địa chỉ: </b><%= @clinic.address %></li>
+				<li><b>Tỉnh/thành phố: </b><%= @clinic.city %></li>
+				<li><b>Email: </b><%= @clinic.user.email %></li>
+				<li><b>Giới thiệu: </b><%= @clinic.introduce %></li>
+			</ul>
+		</div>
+		<% if logged_in? && current_user?(@clinic.user) %>
+	        <%= link_to "Cập nhật thông tin phòng khám", edit_clinic_path(@clinic) %>
+		<% end %>
+		<!--  -->
+		<div class="row title">THÔNG TIN BÁC SĨ</div>
+		<% if !@clinic.physician.blank? %>
+          <div class="detail">
+			<ul>
+				<li><b>Tên bác sĩ: </b><%= @clinic.physician.name %></li>
+				<li><b>Giới tính: </b><%= @clinic.physician.gender %></li>
+				<li><b>Ngày sinh: </b><%= @clinic.physician.dob %></li>
+				<li><b>Email: </b><%= @clinic.physician.email %></li>
+				<li><b>Điện thọai di dộng: </b><%= @clinic.physician.phone %></li>
+				<li><b>Chuyên khoa: </b><%= @clinic.physician.major.name %></li>
+			</ul>
+		 </div>
+        <% end %>
+		<!--  -->
+		<% if logged_in? && current_user?(@clinic.user) %>
+			<% if @clinic.physician.blank? %>
+	          <%= link_to "Thêm thông tin bác sĩ", new_physician_path %>
+	        <% else %>
+	          <%= link_to "Cập nhật thông tin bác sĩ", edit_physician_path(@clinic.physician) %>
+	        <% end %>
+		<% end %>
+		<!--  -->
+	</div>
+	<!--  -->
+	<div class="col-md-6 clinic" style="margin-left: 1em; width: 48%;">
+		<div class="row title">ĐÁNH GIÁ TỪ BỆNH NHÂN</div>
+		<div class="row">
+		    <div class="col-md-12">
+		      	<%= render @clinic.reviews.newest %>
+		    </div>
+		</div>
+		<% if logged_in? %>
+	        <% if current_user.patient? %>
+	            <%= render "reviews/form" %>
+	        <% else %>
+	            <p>Bệnh nhân mới có thể thực hiện đánh giá!</p>
+	        <% end %>
+	    <% else %>
+	        <%= link_to "Đăng nhập để đánh giá", login_path %>
+	    <% end %>
+	    <!--  -->
+		<div class="row title">LỊCH KHÁM BỆNH</div>
+		<% if logged_in? %>
+	        <% if current_user.patient? %>
+	            <%= render "calendars/form" %>
+	        <% else %>
+	        	<% if current_user == @clinic.user %>
+		            <div class="row">
+					    <div class="col-md-12">
+					      	<%= render @clinic.calendars.booked.datest.timest %>
+					    </div>
+					</div>
+				<% end %>
+	        <% end %>
+	    <% else %>
+	        <%= link_to "Đăng nhập để đặt lịch khám", login_path %>
+	    <% end %>
+	    <!--  -->
+		<% if logged_in? && current_user == @clinic.user %>
+			<div class="row title">NHẬT KÝ BỆNH ÁN</div>
+	        <div class="row">
+			    <div class="col-md-12">
+			      	<%= render @clinic.calendars.finished.undatest.untimest %>
+			    </div>
+			</div>
+	    <% end %>
+	</div>
+</div>

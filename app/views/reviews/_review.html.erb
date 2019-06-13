@@ -1,0 +1,20 @@
+<div class="col-md-12 review-item">
+  <div>
+    <span class="review-name"><%= review.patient.name %></span>
+    <span class="review-content">
+      <% review.score.to_i.times do  %>
+        <span class="fa fa-star checked"></span>
+      <% end %>
+      <% (5-review.score.to_i).times do  %>
+        <span class="fa fa-star"></span>
+      <% end %>
+    </span>
+    <% if logged_in? && review.patient.user == current_user %>
+      <%= link_to "Xóa",review_path(review), method: :delete, data: {confirm: "Bạn chắc chắn muốn xóa?"} %>
+    <% end %>
+  </div>
+  <div>
+    <i class="rate_date"><%= review.created_at.strftime("%F %T") %> -</i>
+    <span class="review-content"><%= review.content %></span>
+  </div>
+</div>

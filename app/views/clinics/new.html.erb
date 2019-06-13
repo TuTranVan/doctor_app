@@ -1,0 +1,5 @@
+<% provide :title, "Mở phòng khám" %>
+<% provide :button_text, "Đăng ký" %>
+<%= render "form" %>
+<p class="text-center small"><%= link_to "Đăng nhập ngay", login_path %></p>
+<p class="text-center small"><%= link_to "Hủy đăng ký", user_path(current_user), method: :delete %></p>

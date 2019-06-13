@@ -1,0 +1,36 @@
+<% provide(:title, @patient.name) %>
+<div class="row">
+	<div class="col-md-6 clinic">
+		<div class="row title">THÔNG TIN BỆNH NHÂN</div>
+		<div class="detail">
+			<ul>
+				<li><b>Tên bệnh nhân: </b><%= @patient.name %></li>
+				<li><b>Giới tính: </b><%= @patient.gender %></li>
+				<li><b>Ngày sinh: </b><%= @patient.dob %></li>
+				<li><b>Điện thoại liên hệ: </b><%= @patient.phone %></li>
+				<li><b>Địa chỉ: </b><%= @patient.address %></li>
+				<li><b>Email: </b><%= @patient.user.email %></li>
+			</ul>
+		</div>
+		<% if logged_in? && current_user?(@patient.user) %>
+	        <%= link_to "Cập nhật thông tin bệnh nhân", edit_patient_path(@patient) %>
+		<% end %>
+	</div>
+	<!--  -->
+	<div class="col-md-6 clinic" style="margin-left: 1em; width: 48%;">
+		<% if logged_in? && current_user == @patient.user %>
+			<div class="row title">LỊCH KHÁM BỆNH</div>
+            <div class="row">
+			    <div class="col-md-12">
+			      	<%= render @patient.calendars.booked.datest.timest %>
+			    </div>
+			</div>
+			<div class="row title">NHẬT KÝ BỆNH ÁN</div>
+	        <div class="row">
+			    <div class="col-md-12">
+			      	<%= render @patient.calendars.finished.undatest.untimest %>
+			    </div>
+			</div>
+	    <% end %>
+	</div>	
+</div>

@@ -1,0 +1,69 @@
+<% provide(:title, "Chi tiết lịch khám") %>
+<div class="row">
+	<div class="col-md-6 clinic">
+		<div class="row title">THÔNG TIN PHÒNG KHÁM</div>
+		<div class="detail">
+			<ul>
+				<li><b>Tên phòng khám: </b><%= @calendar.clinic.name %></li>
+				<li><b>Điện thoại liên hệ: </b><%= @calendar.clinic.phone %></li>
+				<li><b>Địa chỉ: </b><%= @calendar.clinic.address %></li>
+				<li><b>Tỉnh/thành phố: </b><%= @calendar.clinic.city %></li>
+				<li><b>Email: </b><%= @calendar.clinic.user.email %></li>
+				<li><b>Giới thiệu: </b><%= @calendar.clinic.introduce %></li>
+			</ul>
+		</div>		<!--  -->
+		<% if !@calendar.clinic.physician.blank? %>
+			<div class="row title">THÔNG TIN BÁC SĨ</div>
+	          <div class="detail">
+				<ul>
+					<li><b>Tên bác sĩ: </b><%= @calendar.clinic.physician.name %></li>
+					<li><b>Giới tính: </b><%= @calendar.clinic.physician.gender %></li>
+					<li><b>Ngày sinh: </b><%= @calendar.clinic.physician.dob %></li>
+					<li><b>Email: </b><%= @calendar.clinic.physician.email %></li>
+					<li><b>Điện thọai di dộng: </b><%= @calendar.clinic.physician.phone %></li>
+					<li><b>Chuyên khoa: </b><%= @calendar.clinic.physician.major.name %></li>
+				</ul>
+			 </div>
+        <% end %>
+		<!--  -->
+	</div>
+	<!--  -->
+	<div class="col-md-6 clinic" style="margin-left: 1em; width: 48%;">
+		<div class="row title">THÔNG TIN LỊCH KHÁM</div>
+		<div class="detail">
+			<ul>
+				<li><b>Ngày khám: </b><%= @calendar.date.strftime("%F") %></li>
+				<li><b>Giờ khám: </b><%= @calendar.time.strftime("%H:%M") %></li>
+				<li><b>Bệnh nhân: </b><%= link_to @calendar.patient.name, @calendar.patient %></li>
+			</ul>
+		</div>
+		<div class="row title">KẾT QUẢ KHÁM BỆNH</div>
+		<div class="detail">
+			<% if @calendar.finished? %>
+				<ul>
+					<li><b>Nội dung: </b><%= @calendar.result %></li>
+					<li><b>Chi phí: </b><%= @calendar.cost %></li>
+				</ul>
+			<% else %>
+				<% if current_user?(@calendar.clinic.user) %>
+					<hr>
+					<%= form_for :finish, url: finish_calendar_path(@calendar) do |f| %>
+
+						<div class="form-group">
+				        	<%= f.text_area :result, class: "form-control", placeholder: "Kết quả..." %>
+				        </div>
+
+				        <div class="form-group">
+				            <%= f.number_field :cost, class: "form-control", placeholder: "Chi phí" %>
+				        </div>
+
+					  <div class="form-group">
+					    <%= f.submit "Hoàn tất", class: "btn btn-primary" %>
+					  </div>
+					<% end %>
+				<% end %>
+			<% end %>	
+		</div>
+	    <!--  -->
+	</div>	
+</div>

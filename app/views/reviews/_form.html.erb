@@ -1,0 +1,18 @@
+<hr>
+<%= form_for Review.new do |f| %>
+
+  <%= f.hidden_field :clinic_id, value: @clinic.id %>
+  <%= f.hidden_field :patient_id, value: current_user.patient.id %>
+
+  <div class="form-group">
+    <%= f.select(:score, select_rating, {}, {class: "form-control star-rating"}) %>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_area :content, class: "form-control", placeholder: "Đánh giá từ bạn..." %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Đánh giá", class: "btn btn-primary" %>
+  </div>
+<% end %>

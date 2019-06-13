@@ -1,0 +1,13 @@
+.clinic{
+	background: silver;
+}
+.title{
+	background: #15224f;
+	padding: 0.5em;
+	text-align: center;
+	color: white;
+	font-weight: bold;
+}
+.detail li{
+	padding: 0.5em;
+}

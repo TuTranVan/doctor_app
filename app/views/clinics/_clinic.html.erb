@@ -1,0 +1,38 @@
+<div class="col-md-4 list-tutor">
+  <div class="card">
+    <div class="card-name"><%= clinic.name %></div>
+    <div class="row" style="padding: 0.3em">
+      <div class="col-md-5">
+        <i class="fa fa-phone"> <%= clinic.phone %></i>
+      </div>
+      <div class="col-md-7">
+        <i class="fa fa-envelope"> <%= clinic.user.email %></i>
+      </div>
+    </div>
+    <div class="row" style="padding: 0.3em">
+      <div class="col-md-12">
+        <i class="fa fa-map-marker"> <%= clinic.address %>, <%= clinic.city %></i>
+      </div>
+    </div>
+    <div class="row" style="padding: 0.3em">
+      <div class="col-md-12">
+        <i class="fa fa-info"> <%= clinic.introduce %></i>
+      </div>
+    </div>
+    <div class="row" style="padding: 0.3em">
+      <div class="col-md-12 text-center">
+        <% clinic.rating.times do  %>
+          <span class="fa fa-star star"></span>
+        <% end %>
+
+        <% (5-clinic.rating).times do  %>
+          <span class="fa fa-star"></span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row text-center" style="padding: 0.7em 0">
+      <%= link_to "Xem chi tiết",clinic, class: "btn btn-danger"%>
+    </div>
+  </div>
+</div>

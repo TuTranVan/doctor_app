@@ -1,0 +1,43 @@
+<section class="login-block">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 login-sec">
+        <h2 class="text-center">THÔNG TIN BỆNH NHÂN</h2>
+        <%= form_for @patient do |f| %>
+          <%= render "shared/error_messages", object: @patient %>
+          
+          <%= f.hidden_field :user_id, value: current_user.id %>
+
+          <div class="form-group">
+            <%= f.text_field :name, class: "form-control", placeholder: "Tên bệnh nhân" %>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-6">
+              <%= f.radio_button :gender, "Nam" %>
+              <%= f.label :gender, "Nam", value: "Nam" %>
+            </div>
+            <div class="col-md-6">
+              <%= f.radio_button :gender, "Nữ" %>
+              <%= f.label :gender, "Nữ", value: "Nữ" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.date_field :dob, class: "form-control", max: Date.today %>
+          </div>
+
+          <div class="form-group">
+            <%= f.text_field :phone, class: "form-control", placeholder: "Điện thoại" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.text_field :address, class: "form-control", placeholder: "Địa chỉ" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-block login-btn" %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</section>

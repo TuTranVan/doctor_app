@@ -1,0 +1,48 @@
+<section class="login-block">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 login-sec">
+        <h2 class="text-center">THÔNG TIN BÁC SĨ</h2>
+        <%= form_for @physician do |f| %>
+          <%= render "shared/error_messages", object: @physician %>
+
+          <%= f.hidden_field :clinic_id, value: current_user.clinic.id %>
+          
+          <div class="form-group">
+            <%= f.text_field :name, class: "form-control", placeholder: "Tên bác sĩ" %>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-6">
+              <%= f.radio_button :gender, "Nam" %>
+              <%= f.label :gender, "Nam", value: "Nam" %>
+            </div>
+            <div class="col-md-6">
+              <%= f.radio_button :gender, "Nữ" %>
+              <%= f.label :gender, "Nữ", value: "Nữ" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.date_field :dob, class: "form-control", max: Date.today %>
+          </div>
+
+          <div class="form-group">
+            <%= f.text_field :phone, class: "form-control", placeholder: "Điện thoại" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.select(:major_id, select_major,
+            {:include_blank => "Chuyên khoa"},{class: "form-control"}) %>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit yield(:button_text), class: "btn btn-primary btn-lg btn-block login-btn" %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</section>

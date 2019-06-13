@@ -1,0 +1,38 @@
+<nav class="navbar"  role="navigation">
+	<div class="container-fluid navbar-border">
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >
+    		<ul class="nav navbar-nav navbar-right">
+				<li>
+					<%= link_to signup_path do %>
+						<span class="glyphicon glyphicon-user"></span> Đăng ký</a>
+					<% end %>
+				</li>
+				<% if logged_in? %>
+		            <li class="dropdown nav-item">
+		              <a href="#" class="dropdown-toggle nav-link cool" data-toggle="dropdown">
+		                <%= current_user.email %><b class="caret"></b>
+		              </a>
+		              <ul class="dropdown-menu">
+		                <% if current_user.admin? %>
+		                  <li><%= link_to "Quản lý hệ thống",admin_root_path %></li>
+		                <% else %>
+		                  <li><%= link_to "Thông tin cá nhân", current_user %></li>
+		                <% end %>
+		                <li class="divider"></li>
+		                <li><%= link_to "Đăng xuất", logout_path, method: :delete %></li>
+		              </ul>
+		            </li>
+		          <% else %>
+		            <li class="dropdown">
+						<%= link_to login_path do %>
+							<span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a>
+						<% end %>
+					</li>
+		          <% end %>
+			</ul>
+			<ul class="nav navbar-nav" >
+				<li><%= link_to "TRANG CHỦ",root_path %></li>
+			</ul>
+		</div>
+	</div>
+</nav>
